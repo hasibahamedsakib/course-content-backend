@@ -28,6 +28,7 @@ export const createCourseValidationSchema = z.object({
     provider: z.string({ required_error: 'Provide Course Provider Name' }),
     durationInWeeks: z.number().optional(),
     details: detailsValidationSchema,
+    createdBy: z.string({ required_error: 'createdBy is required' }),
   }),
 })
 // course tag Update validation
@@ -68,5 +69,6 @@ export const updateCourseValidationSchema = z.object({
       .optional(),
     durationInWeeks: z.number().optional(),
     details: detailsUpdateValidationSchema.optional(),
+    createdBy: z.string({ required_error: 'createdBy is required' }).optional(),
   }),
 })
