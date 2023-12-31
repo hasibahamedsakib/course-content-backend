@@ -4,6 +4,7 @@ import requestValidator from '../../middlewares/requestValidator'
 import {
   createUserValidationSchema,
   loginUserValidationSchema,
+  changePasswordValidationSchema,
 } from './user.validation'
 const router = express.Router()
 
@@ -16,6 +17,12 @@ router.post(
 router.post(
   '/login',
   requestValidator(loginUserValidationSchema),
+  loginUserController,
+)
+// change password
+router.post(
+  '/change-password',
+  requestValidator(changePasswordValidationSchema),
   loginUserController,
 )
 

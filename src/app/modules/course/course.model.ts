@@ -88,4 +88,4 @@ const courseSchema = new Schema<TCourse>({
   },
 })
 
-export const Course = model('Course', courseSchema)
+export const Course = model<TCourse>('Course', courseSchema)
