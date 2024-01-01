@@ -49,40 +49,43 @@ const loginUserService = async (payload: TLoginUser) => {
 }
 
 const changePasswordService = async (payload: TChangePass) => {
-  const findUser = await User.isUserExistByUsername(payload.username)
-  if (!findUser) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User Not Found')
-  }
+  console.log(payload)
 
-  const isPasswordMatch = await bcrypt.compare(
-    payload.password,
-    findUser.password,
-  )
-  if (!isPasswordMatch) {
-    throw new AppError(
-      httpStatus.FORBIDDEN,
-      'Wrong Password.Provide valid password.',
-    )
-  }
+  // jwt.verify(token, 'wrong-secret', function (err, decoded) {})
+  // const findUser = await User.isUserExistByUsername(payload.username)
+  // if (!findUser) {
+  //   throw new AppError(httpStatus.NOT_FOUND, 'User Not Found')
+  // }
 
-  // user data
-  const jwtPayload = {
-    _id: findUser._id,
-    email: findUser.email,
-    role: findUser.role,
-  }
-  const secret = config.SECRET_KEY as string
+  // const isPasswordMatch = await bcrypt.compare(
+  //   payload?.password,
+  //   findUser.password,
+  // )
+  // if (!isPasswordMatch) {
+  //   throw new AppError(
+  //     httpStatus.FORBIDDEN,
+  //     'Wrong Password.Provide valid password.',
+  //   )
+  // }
 
-  const token = jwt.sign(jwtPayload, secret, { expiresIn: '1d' })
-  const { _id, username, email, role } = findUser
-  const user = {
-    _id,
-    username,
-    email,
-    role,
-  }
+  // // user data
+  // const jwtPayload = {
+  //   _id: findUser._id,
+  //   email: findUser.email,
+  //   role: findUser.role,
+  // }
+  // const secret = config.SECRET_KEY as string
 
-  return { user, token }
+  // const token = jwt.sign(jwtPayload, secret, { expiresIn: '1d' })
+  // const { _id, username, email, role } = findUser
+  // const user = {
+  //   _id,
+  //   username,
+  //   email,
+  //   role,
+  // }
+
+  // return { user, token }
 }
 
 export { createUserIntoDB, loginUserService, changePasswordService }

@@ -1,4 +1,5 @@
 import { Model } from 'mongoose'
+import { USER_ROLE } from './user.constant'
 
 export interface TUser {
   _id: string
@@ -16,6 +17,9 @@ export interface TChangePass {
   currentPassword: string
   newPassword: string
 }
+
+export type TUserRole = keyof typeof USER_ROLE
+
 export interface UserModel extends Model<TUser> {
   isUserExistByUsername(username: string): Promise<TUser>
 }
