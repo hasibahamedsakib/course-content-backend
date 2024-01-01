@@ -28,7 +28,7 @@ export const createCourseValidationSchema = z.object({
     provider: z.string({ required_error: 'Provide Course Provider Name' }),
     durationInWeeks: z.number().optional(),
     details: detailsValidationSchema,
-    createdBy: z.string({ required_error: 'createdBy is required' }),
+    createdBy: z.string({ required_error: 'createdBy is required' }).optional(),
   }),
 })
 // course tag Update validation

@@ -5,7 +5,7 @@ dotenv.config({ path: path.join((process.cwd(), '.env')) })
 
 const env = process.env
 export default {
-  port: env.PORT || 4001,
+  port: env.PORT || 3000,
   db_url: env.DATABASE_URL || 'mongodb://localhost:27017/AssignmentFour',
   salt_rounds: env.SALT_ROUNDS,
   SECRET_KEY: env.JWT_SECRET_KEY,

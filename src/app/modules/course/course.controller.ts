@@ -12,7 +12,7 @@ import {
 
 // create new course controller
 const createCourseController = catchAsync(async (req, res) => {
-  const result = await createCourseIntoDB(req.body)
+  const result = await createCourseIntoDB(req.user, req.body)
 
   sendResponse(res, {
     success: true,

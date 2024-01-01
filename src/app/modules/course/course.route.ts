@@ -12,12 +12,15 @@ import {
   getSingleCourseFromReviewController,
   updateCourseController,
 } from './course.controller'
+import auth from '../../middlewares/auth'
+import { USER_ROLE } from '../user/user.constant'
 
 const router = Router()
 
 //  Create a Course
 router.post(
-  '/course',
+  '/courses',
+  auth(USER_ROLE.admin),
   requestValidator(createCourseValidationSchema),
   createCourseController,
 )
@@ -30,6 +33,7 @@ router.get('/courses/:id', getSingleCourseController)
 // Update a Course (Partial Update with Dynamic Update)
 router.put(
   '/courses/:id',
+  auth(USER_ROLE.admin),
   requestValidator(updateCourseValidationSchema),
   updateCourseController,
 )

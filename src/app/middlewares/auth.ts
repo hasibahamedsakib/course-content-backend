@@ -23,6 +23,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
       }
 
       const role = (decoded as JwtPayload).role
+
       if (requiredRoles && !requiredRoles.includes(role)) {
         throw new AppError(httpStatus.UNAUTHORIZED, 'unauthorized user.')
       }

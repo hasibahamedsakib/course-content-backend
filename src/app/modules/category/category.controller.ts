@@ -8,7 +8,7 @@ import {
 
 // create a new category
 const createCategoryController = catchAsync(async (req, res) => {
-  const result = await createCategoryIntoDB(req.body)
+  const result = await createCategoryIntoDB(req.user, req.body)
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,

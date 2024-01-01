@@ -4,9 +4,13 @@ import mongoose from 'mongoose'
 import { Review } from '../review/review.model'
 import { TCourse } from './course.interface'
 import { Course } from './course.model'
+import { JwtPayload } from 'jsonwebtoken'
 
 // create new course
-const createCourseIntoDB = async (payload: TCourse) => {
+const createCourseIntoDB = async (
+  requestUser: JwtPayload,
+  payload: TCourse,
+) => {
   // start date and end date
   const courseStart = new Date(payload.startDate)
   const courseEnd = new Date(payload.endDate)
@@ -24,7 +28,7 @@ const createCourseIntoDB = async (payload: TCourse) => {
   )
   // set durationInWeeks property in payload.
   payload.durationInWeeks = durationInWeeks
-
+  payload.createdBy = requestUser._id
   const result = await Course.create(payload)
   return result
 }
@@ -45,7 +49,10 @@ const getAllCourseFromDB = async (query: Record<string, unknown>) => {
     'endDate',
   ]
   excludeFields.forEach((element) => delete queryObj[element])
-  let demoFindQuery = Course.find()
+  let demoFindQuery = Course.find().populate({
+    path: 'createdBy',
+    select: ['-createdAt', '-updatedAt', '-__v'],
+  })
   // price range;
   if (query?.minPrice && query?.maxPrice) {
     const rangePrice = Course.find({

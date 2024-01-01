@@ -1,11 +1,11 @@
 import httpStatus from 'http-status'
 import catchAsync from '../../utils/catchAsync'
 import sendResponse from '../../utils/sendResponse'
-import { createReviewIntoDB, getAllCourseFromDB } from './review.service'
+import { createReviewIntoDB, getAllReviewsFromDB } from './review.service'
 
 // create review controller
 const createReviewController = catchAsync(async (req, res) => {
-  const result = await createReviewIntoDB(req.body)
+  const result = await createReviewIntoDB(req.user, req.body)
 
   sendResponse(res, {
     success: true,
@@ -16,7 +16,7 @@ const createReviewController = catchAsync(async (req, res) => {
 })
 
 const getAllReviewsController = catchAsync(async (req, res) => {
-  const result = await getAllCourseFromDB()
+  const result = await getAllReviewsFromDB()
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

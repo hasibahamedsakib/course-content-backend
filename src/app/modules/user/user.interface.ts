@@ -18,10 +18,11 @@ export interface TChangePass {
   newPassword: string
 }
 
-export type TUserRole = keyof typeof USER_ROLE
 export interface UserModel extends Model<TUser> {
   isUserExistByUsername(username: string): Promise<TUser>
 }
 export interface UserModel extends Model<TUser> {
   isUserExistByEmail(email: string): Promise<TUser>
 }
+
+export type TUserRole = keyof typeof USER_ROLE
