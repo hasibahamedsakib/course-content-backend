@@ -11,6 +11,7 @@ import {
   changePasswordValidationSchema,
 } from './user.validation'
 import auth from '../../middlewares/auth'
+import { USER_ROLE } from './user.constant'
 const router = express.Router()
 
 router.post(
@@ -27,7 +28,7 @@ router.post(
 // change password
 router.post(
   '/change-password',
-  auth(),
+  auth(USER_ROLE.user, USER_ROLE.admin),
   requestValidator(changePasswordValidationSchema),
   changePasswordController,
 )

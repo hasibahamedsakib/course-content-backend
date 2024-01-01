@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { Schema, model } from 'mongoose'
 import { TUser, UserModel } from './user.interface'
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import config from '../../config'
 
 const userSchema = new Schema<TUser, UserModel>(
@@ -41,6 +41,11 @@ userSchema.pre('save', async function () {
 // creating a static method by email
 userSchema.statics.isUserExistByUsername = async function (username: string) {
   const existingUser = await User.findOne({ username }).select('+password')
+  return existingUser
+}
+// creating a static method by email
+userSchema.statics.isUserExistByEmail = async function (email: string) {
+  const existingUser = await User.findOne({ email }).select('+password')
   return existingUser
 }
 

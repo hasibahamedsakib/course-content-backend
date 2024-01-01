@@ -32,7 +32,7 @@ const loginUserController = catchAsync(async (req, res) => {
   })
 })
 const changePasswordController = catchAsync(async (req, res) => {
-  const result = await changePasswordService(req.body)
+  const result = await changePasswordService(req.user, req.body)
 
   sendResponse(res, {
     success: true,
