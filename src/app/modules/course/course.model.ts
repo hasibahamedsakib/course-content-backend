@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { TCourse, TDetails, TTags } from './course.interface'
+import { TCourse, TCreatedByCourse, TDetails, TTags } from './course.interface'
 
 const tagsSchema = new Schema<TTags>({
   name: {
@@ -27,7 +27,17 @@ const detailsSchema = new Schema<TDetails>({
     trim: true,
   },
 })
-
+const createdBySchema = new Schema<TCreatedByCourse>({
+  username: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  role: {
+    type: String,
+  },
+})
 const courseSchema = new Schema<TCourse>(
   {
     title: {
@@ -83,8 +93,7 @@ const courseSchema = new Schema<TCourse>(
       _id: false,
     },
     createdBy: {
-      type: Schema.Types.ObjectId,
-      required: true,
+      type: createdBySchema,
       ref: 'User',
     },
   },

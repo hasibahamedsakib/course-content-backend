@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { createdByValidationSchema } from '../review/review.validation'
 
 // course tag validation
 const tagsValidationSchema = z.object({
@@ -28,7 +29,7 @@ export const createCourseValidationSchema = z.object({
     provider: z.string({ required_error: 'Provide Course Provider Name' }),
     durationInWeeks: z.number().optional(),
     details: detailsValidationSchema,
-    createdBy: z.string({ required_error: 'createdBy is required' }).optional(),
+    createdBy: z.string().optional(),
   }),
 })
 // course tag Update validation
@@ -69,6 +70,6 @@ export const updateCourseValidationSchema = z.object({
       .optional(),
     durationInWeeks: z.number().optional(),
     details: detailsUpdateValidationSchema.optional(),
-    createdBy: z.string({ required_error: 'createdBy is required' }).optional(),
+    createdBy: z.string(createdByValidationSchema).optional(),
   }),
 })

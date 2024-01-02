@@ -1,5 +1,6 @@
 import { Types } from 'mongoose'
 
+
 export type TTags = {
   _id: Types.ObjectId
   name: string
@@ -10,7 +11,12 @@ export type TDetails = {
   level: 'Beginner' | 'Intermediate' | 'Advanced'
   description: string
 }
-
+export type TCreatedByCourse = {
+  _id?: Types.ObjectId
+  username?: string
+  email?: string
+  role?: string
+}
 export type TCourse = {
   title: string
   instructor: string
@@ -23,5 +29,5 @@ export type TCourse = {
   provider: string
   durationInWeeks?: number
   details: TDetails
-  createdBy: Types.ObjectId
+  createdBy: TCreatedByCourse
 }

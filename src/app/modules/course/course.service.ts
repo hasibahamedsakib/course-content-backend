@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import mongoose from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 import { Review } from '../review/review.model'
-import { TCourse } from './course.interface'
+import { TCourse, TCreatedByCourse } from './course.interface'
 import { Course } from './course.model'
 import { JwtPayload } from 'jsonwebtoken'
+import { User } from '../user/user.model'
 
 // create new course
 const createCourseIntoDB = async (
@@ -28,7 +29,10 @@ const createCourseIntoDB = async (
   )
   // set durationInWeeks property in payload.
   payload.durationInWeeks = durationInWeeks
-  payload.createdBy = requestUser._id
+  const user = await User.isUserExistByEmail(requestUser.email)
+
+  payload.createdBy = user._id
+
   const result = await Course.create(payload)
   return result
 }
@@ -198,7 +202,20 @@ const getBestCourseFromDB = async () => {
 }
 
 // update course
-const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
+const updateCourseIntoDB = async (
+  id: string,
+  requestUser: JwtPayload,
+  payload: Partial<TCourse>,
+) => {
+  const user = await User.isUserExistByEmail(requestUser.email)
+  const createdByData: TCreatedByCourse = {
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
+  }
+  payload.createdBy = createdByData
+
   const { tags, details, ...remainingCourseData } = payload
 
   const modifiedUpdatedData: Record<string, unknown> = {

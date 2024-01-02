@@ -1,18 +1,22 @@
 import { JwtPayload } from 'jsonwebtoken'
-import { TReview } from './review.interface'
+import { TCreatedBy, TReview } from './review.interface'
 import { Review } from './review.model'
+import { User } from '../user/user.model'
 
 // Create a Review
 const createReviewIntoDB = async (
   requestUser: JwtPayload,
   payload: TReview,
 ) => {
-  payload.createdBy = {
-    _id: requestUser._id,
-    username: requestUser.username,
-    email: requestUser.email,
-    role: requestUser.role,
+  const user = await User.isUserExistByEmail(requestUser.email)
+  const createdByData: TCreatedBy = {
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
   }
+
+  payload.createdBy = createdByData
   const result = await Review.create(payload)
   return result
 }

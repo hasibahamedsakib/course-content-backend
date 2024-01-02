@@ -70,7 +70,7 @@ const getBestCourseController = catchAsync(async (req, res) => {
 
 //  update single course
 const updateCourseController = catchAsync(async (req, res) => {
-  const result = await updateCourseIntoDB(req.params.id, req.body)
+  const result = await updateCourseIntoDB(req.params.id, req.user, req.body)
 
   sendResponse(res, {
     success: true,
