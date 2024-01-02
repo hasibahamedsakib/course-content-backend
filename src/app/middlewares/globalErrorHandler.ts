@@ -6,6 +6,7 @@ import handleDuplicateError from '../errors/handleDuplicateError'
 import config from '../config'
 
 import handleCastError from '../errors/handleCastError'
+import handleUnauthorizeError from '../errors/handleUnauthorizeError'
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = 500
@@ -28,6 +29,19 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     statusCode = simplifiedError.statusCode
     message = simplifiedError.message
     sourceMessage = simplifiedError.sourceMessage.join('. ')
+  } else if (error.message === 'Unauthorized Access') {
+    const simplifiedError = handleUnauthorizeError(error)
+
+    message = simplifiedError.message
+    const errorMessage = simplifiedError.errorMessage
+    const errorDetails = simplifiedError.errorDetails
+    return res.status(statusCode).json({
+      success: false,
+      message,
+      errorMessage,
+      errorDetails,
+      stack: null,
+    })
   }
 
   return res.status(statusCode).json({

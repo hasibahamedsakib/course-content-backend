@@ -1,6 +1,6 @@
 # Node.js Express TypeScript API with MongoDB and Validation
 
-This project is a Node.js Express application developed in TypeScript, utilizing Mongoose for course data and course management. The validation is implemented using Zod.
+This project is a Node.js Express application developed in TypeScript, utilizing Mongoose for course data and course management. The validation is implemented using Zod.And Also validation JWT and authorizesion.
 
 ## Project Setup
 
@@ -29,4 +29,4 @@ make sure before run the project you build and watch(tsc) the project. if you wa
 
 ## our live api documentation
 
-# api-url - [Live Link](https://l2-assignment-3.vercel.app/)
+# api-url - [Live Link](https://assignment-04-seven.vercel.app/)

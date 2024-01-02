@@ -31,9 +31,10 @@ const createCourseIntoDB = async (
   payload.durationInWeeks = durationInWeeks
   const user = await User.isUserExistByEmail(requestUser.email)
 
-  payload.createdBy = user._id
-
-  const result = await Course.create(payload)
+  const result = await Course.create({
+    ...payload,
+    createdBy: user._id,
+  })
   return result
 }
 

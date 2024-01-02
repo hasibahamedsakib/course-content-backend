@@ -1,6 +1,5 @@
 import { Types } from 'mongoose'
 
-
 export type TTags = {
   _id: Types.ObjectId
   name: string
@@ -12,7 +11,7 @@ export type TDetails = {
   description: string
 }
 export type TCreatedByCourse = {
-  _id?: Types.ObjectId
+  _id?: string
   username?: string
   email?: string
   role?: string

@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose'
 import { TUser, UserModel } from './user.interface'
 import bcrypt from 'bcrypt'
 import config from '../../config'
+import { History } from './userPasswordHistory'
 
 const userSchema = new Schema<TUser, UserModel>(
   {
@@ -37,7 +38,14 @@ userSchema.pre('save', async function () {
 
   user.password = await bcrypt.hash(user.password, Number(config.salt_rounds))
 })
+userSchema.post('save', async function (doc, next) {
+  await History.create({
+    userId: doc._id,
+    password: doc.password,
+  })
 
+  next()
+})
 // creating a static method by email
 userSchema.statics.isUserExistByUsername = async function (username: string) {
   const existingUser = await User.findOne({ username }).select('+password')

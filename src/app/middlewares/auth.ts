@@ -11,21 +11,18 @@ const auth = (...requiredRoles: TUserRole[]) => {
     const token = req.headers.authorization
 
     if (!token) {
-      throw new AppError(
-        httpStatus.UNAUTHORIZED,
-        "Your are not 'AUTHORIZED' user.",
-      )
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized Access')
     }
     const secret = config.SECRET_KEY as string
     jwt.verify(token, secret, function (err, decoded) {
       if (err) {
-        throw new AppError(httpStatus.UNAUTHORIZED, 'unauthorized user.')
+        throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized Access')
       }
 
       const role = (decoded as JwtPayload).role
 
       if (requiredRoles && !requiredRoles.includes(role)) {
-        throw new AppError(httpStatus.UNAUTHORIZED, 'unauthorized user.')
+        throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized Access')
       }
       req.user = decoded as JwtPayload
       next()
