@@ -53,10 +53,7 @@ const getAllCourseFromDB = async (query: Record<string, unknown>) => {
     'endDate',
   ]
   excludeFields.forEach((element) => delete queryObj[element])
-  let demoFindQuery = Course.find().populate({
-    path: 'createdBy',
-    select: ['-createdAt', '-updatedAt', '-__v'],
-  })
+  let demoFindQuery = Course.find()
   // price range;
   if (query?.minPrice && query?.maxPrice) {
     const rangePrice = Course.find({
@@ -124,6 +121,7 @@ const getAllCourseFromDB = async (query: Record<string, unknown>) => {
   }
   return { result, meta }
 }
+
 // get single course
 const getSingleCourseFromDB = async (id: any) => {
   const result = await Course.findById(id).populate('categoryId')
