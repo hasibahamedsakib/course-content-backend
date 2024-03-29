@@ -38,7 +38,9 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     return res.status(statusCode).json({
       success: false,
       message,
-      errorMessage,
+      errorMessage:
+        errorMessage ||
+        'You do not have the necessary permissions to access this resource.',
       errorDetails,
       stack: null,
     })
