@@ -29,4 +29,4 @@ make sure before run the project you build and watch(tsc) the project. if you wa
 
 ## our live api documentation
 
-# api-url - [Live Link](https://assignment-04-seven.vercel.app/)
+# api-url - [Live Link](https://course-management-topaz.vercel.app/)
