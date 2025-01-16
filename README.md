@@ -7,7 +7,7 @@ This project is a Node.js Express application developed in TypeScript, utilizing
 1. **Clone the w Node.js Express project and run locally(now this repo are privet):**
 
    ```bash
-   git clone https://github.com/Porgramming-Hero-web-course/l2b2a3-course-review-hasibahamedsakib.git
+   git clone https://github.com/hasibahamedsakib/course-management-backend.git
    ```
 
 #### Step-2
